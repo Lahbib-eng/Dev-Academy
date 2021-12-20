@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script type='text/javascript' src='jquery.min.js'></script>
+		<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script> 
+    <script src="main.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    </head>
+	
+	<!-- Styles -->
+	<style>
+		body{
+			margin-bottom: 100px;
+		}
+		
+		#contact div{
+			margin-top: 1em;
+		}
+		textarea{
+			vertical-align: top;
+			height: 5em;
+		}
+			
+		.error{
+			display: none;
+			margin-left: 10px;
+		}		
+		
+		.error_show{
+			color: red;
+			margin-left: 10px;
+		}
+		
+		input.invalid, textarea.invalid{
+			border: 2px solid red;
+		}
+		
+		input.valid, textarea.valid{
+			border: 2px solid green;
+		}
+	</style>
+	
+	
+	<script>
+		$(document).ready(function() {
+			   
+				//Name can't be blank
+				$('#contact_name').on('input', function() {
+					var input=$(this);
+					var is_name=input.val();
+					if(is_name){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+
+				$('#contact_prenom').on('input', function() {
+					var input=$(this);
+					var is_prenom=input.val();
+					if(is_prenom){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+
+				$('#contact_telf').on('input', function() {
+					var input=$(this);
+					var is_telf=input.val();
+					if(is_telf){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+				$('#contact_etud').on('input', function() {
+					var input=$(this);
+					var is_etud=input.val();
+					if(is_etud){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+
+
+
+
+				//$('#contact_etud').on('input', function() {
+
+					//var input=$(this);
+					//var Length=input.val().length();
+                    //var minLength = 8;
+					//var maxLength = 8;
+	
+					//if(Length < minLength){
+                    //$('#span').text('Length is short, minimum '+minLength+' required.');
+                    //}else if(Length > maxLength){
+                    //$('#span').text('Length is not valid, maximum '+maxLength+' allowed.');
+            
+                    //}else{
+                    //$('#span').text('Length is valid');
+                    //}
+
+					
+					
+
+		
+				//});
+				$('#contact_cin').on('input', function() {
+					var input=$(this);
+					var is_cin=input.val();
+					if(is_cin){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+				
+				
+				//Email must be an email 
+				$('#contact_email').on('input', function() {
+					var input=$(this);
+					var re = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+					var is_email=re.test(input.val());
+					if(is_email){input.removeClass("invalid").addClass("valid");}
+					else{input.removeClass("valid").addClass("invalid");}
+				});
+				
+				
+				
+				
+		
+			// After Form Submitted Validation
+			$("#contact_submit button").click(function(event){
+				var form_data=$("#contact").serializeArray();
+				var error_free=true;
+				for (var input in form_data){
+					var element=$("#contact_"+form_data[input]['name']);
+					var valid=element.hasClass("valid");
+					var error_element=$("span", element.parent());
+					if (!valid){error_element.removeClass("error").addClass("error_show"); error_free=false;}
+					else{error_element.removeClass("error_show").addClass("error");}
+				}
+				if (!error_free){
+					event.preventDefault(); 
+				}
+				else{
+					alert('No errors: Form will be submitted');
+				}
+			});
+			
+			
+			
+		});
+	</script>
+	
+    <body>
+	    <div class="jumbotron text-center">
+					<h1>Formulaire d'Inscription</h1>
+		</div>
+		<div class="container">
+		<form id="contact" method="post" action="">
+			
+			<div  class="form-group"> 
+				<label for="contact_etud">Numéro de la carte étudiant</label> <span style="color:red">*</span>
+				<input type="number" id="contact_etud" name="etud"class="form-control" placeholder="xxxxxxxx">
+				<span  class="error" >This field is required </span>
+			</div>
+			<div  class="form-group"> 
+					<label for="contact_cin">Numéro de la CIN</label> <span style="color:red">*</span>
+					<input type="text" id="contact_cin" name="cin"class="form-control"placeholder="xxxxxxxx">
+					<span class="error">This field is required </span>
+				</div>
+			<div  class="form-group"> 
+				<label for="contact_name">Nom</label> <span style="color:red">*</span>
+				<input type="text" id="contact_name" name="name"class="form-control" placeholder="Foulen">
+				<span class="error">This field is required</span>
+			</div>
+			<div  class="form-group"> 
+					<label for="contact_prenom">Prénom</label> <span style="color:red">*</span>
+					<input type="text" id="contact_prenom" name="prenom"class="form-control" placeholder="Ben Foulen">
+					<span class="error">This field is required</span>
+				</div>
+			
+			<div  class="form-group">
+				<label for="contact_email">Email</label> <span style="color:red">*</span>
+				<input type="email" id="contact_email" name="email"class="form-control" placeholder="test@test.com">
+				<span class="error">A valid email address is required</span>				
+			</div>
+			<div  class="form-group">
+					<label for="contact_telf">Téléphone</label> <span style="color:red">*</span>
+					<input type="text" id="contact_telf" name="telf"class="form-control" placeholder="+216">
+					<span class="error">This field is required</span>				
+			</div>						
+						
+			
+			<div id="contact_submit">				
+				<button type="submit" class="btn btn-info btn-block">Submit</button>
+			</div>
+		</form>
+	</div>
+	</body>
+</html>
+
+      
+    
+
